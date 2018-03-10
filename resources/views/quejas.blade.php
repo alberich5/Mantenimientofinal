@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Quejas</div>
+                    <div class="panel-heading"><center>Mantenimientos</center></div>
                     <div class="panel-body">
                         <table class="table table-striped">
                             <thead>
@@ -18,35 +18,28 @@
                             <tr>
                                 <th><h4>{{$post->nombre_usuario}}</h4>
                                     <br>
-                                    FECHA RECIBIO:{{$post->fecha}}
+                                <strong>Folio: </strong> {{$post->id}}
                                     <br>
-                                    TIPO:{{$post->tipo}}
+                                    FECHA RECIBIO: {{$post->fecha_reporte}}
                                     <br>
-                                    Tipo de Entrada:{{$post->entrada}}
+                                    Delegacion o Area: {{$post->nombre_area}}
                                     <br>
-                                    MES:{{$post->mes}}
+                                    Tipo de mantenimimiento: {{$post->nombre_mante}}
                                     <br>
-                                    EMPRESA:{{$post->empresa}}
+                                    Equipo: {{$post->nombre_equipo}}
                                     <br>
-                                    REPRESENTANTE:{{$post->representante}}
+                                    Observaciones: {{$post->observacion}}
                                     <br>
-                                    DOMICILIO:{{$post->domicilio}}
-                                    <br>
-                                    AMBITO:{{$post->ambito}}
-                                    <br>
-                                    DELEGACION:{{$post->delegacion}}
-                                    <br>
-                                    CODIGO:{{$post->codigo}}
-                                    <br>
-                                    CODIGO QUEJA:{{$post->codigoqueja}}
-                                    <br>
-                                    STATUS:{{$post->status}}
-                                    <br>
-                                    DESCRIPCION DE LA QUEJA:{{$post->contenido}}
+                                      @if($post->status == 'pendiente')
+                                    status: <span class="label label-primary">{{$post->status}}</span>
+                                      @endif
+                                      @if($post->status == 'atendido')
+                                    status: <span class="label label-success">{{$post->status}}</span>
+                                      @endif
                                 </th>
                                 <th>
                                     @if(Auth::check() && Auth::user()->id == $post->id_usuario || Auth::check() && Auth::user()->rol == 'admin')
-                                <a href="http://localhost/comer/proyecto3/public/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">Editar</button> </a>
+                                <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-info">Editar</button> </a>
                                 </th>
                                 <th>
                                     <!--<a href="/posts/delete/{{$post->id}}" ><button class="btn btn-danger">Delete</button> </a>-->

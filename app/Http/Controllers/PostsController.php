@@ -3,96 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Status;
+use App\Equipo;
+use App\Area;
+use App\Tipomantenimiento;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
 
-    }
-    //funcion para mostrar el index
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
-        return view('posts',compact("posts"));
+
+          $equipo = Equipo::orderBy('created_at', 'desc')->get();
+          $area = Area::orderBy('created_at', 'desc')->get();
+          $manti = Tipomantenimiento::orderBy('created_at', 'desc')->get();
+
+
+        return view("posts",["equipo"=>$equipo,"area"=>$area,"manti"=>$manti]);
     }
-    //funcion para mostrar las quejas
+
     public function queja()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+
+        $posts = Post::leftjoin('users', 'posts.id_usuario', '=', 'users.id')
+              //->leftjoin('equipo ', 'posts.id_equipo', '=', 'equipo.id')
+              ->leftjoin('area', 'posts.id_area', '=', 'area.id')
+              ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
+              ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
+              ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status')
+               ->paginate(10);
+
         return view('quejas',compact("posts"));
-    }
-
-    //funcion para salidas
-    public function salida()
-    {
-        return view('servicio.salida');
-    }
-    //funcion para entradas
-    public function entrada()
-    {
-        return view('servicio.entrada');
-    }
-    //funcion para entradas
-    public function cliente()
-    {
-        return view('servicio.cliente');
-    }
-
-    //funcion para mostrar las graficas
-    public function grafica()
-    {
-
-        return view('grafica');
-    }
-
-    //funcion para mostrar filtro
-    public function filtro()
-    {
-
-        return view('filtro');
-    }
-
-    //funcion para mostrar quejas atendidas
-    public function atendida()
-    {
-        $posts = Post::select('nombre_usuario','contenido','status')->where('status','atendida')->get();
-        return $posts;
-    }
-
-    public function status()
-    {
-         $status = Status::all();
-        return $status;
-    }
-
-     //funcion para mostrar quejas pendientes
-    public function pendiente()
-    {
-        $posts = Post::select('nombre_usuario','contenido','status')->where('status','pendiente')->get();
-        return $posts;
     }
 
     public function store(Request $request)
     {
         $this->validate($request,[
-            'id_usuario'=>'required',
-           'nombre_usuario' => 'required',
-            'contenido' => 'required',
-            'fecha' => 'required',
-            'empresa' => 'required',
-            'mes' => 'required',
-            'representante' => 'required',
-            'delegacion' => 'required',
-            'delegacion' => 'required',
+
+
         ]);
         //dd($request->all());
         Post::create($request->all());
 
-        return redirect('quejas');
+        return redirect('posts');
     }
 
     public function destroy($id)
@@ -120,7 +73,28 @@ class PostsController extends Controller
         $input = $request->all();
         $post->fill($input)->save();
 
-        return redirect("quejas");
+        return redirect("posts");
+    }
+
+    public function guardarqueja(Request $request)
+    {
+
+      $post=new Post;
+      $post->id_usuario=$request->get('id_usuario');
+      $post->id_area=$request->get('area');
+      $post->id_equipo=$request->get('tipo_equipo');
+      $post->id_tipomante=$request->get('tipo_mante');
+      $post->fecha_reporte=$request->get('fecha');
+      $post->telefono=$request->get('telefono');
+      $post->email=$request->get('correo');
+      $post->listado="temporal";
+      $post->marca=$request->get('marca');
+      $post->modelo=$request->get('modelo');
+      $post->serie=$request->get('serie');
+      $post->observacion=$request->get('observacion');
+      $post->status='pendiente';
+      $post->save();
+      return redirect("posts");
     }
 
 }

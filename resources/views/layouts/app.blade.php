@@ -68,8 +68,8 @@
                            <!-- <li><a href="{{ url('/register') }}">Register</a></li>-->
                             <li><a href="{{ url('/howto') }}">Como usar ?</a></li>
                         @else
-                          <li><a href="{{ url('/entrada') }}">Entrada</a></li>
-                            <li><a href="{{ url('/salida') }}">Salida</a></li>
+                          <li><a href="{{ url('/post') }}">Entrada</a></li>
+                            <li><a href="{{ url('/quejas') }}">Mantenimientos</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Agregar <span class="caret"></span>
