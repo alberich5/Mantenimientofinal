@@ -25,25 +25,25 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="fecha">Fecha del reporte:</label>
-                        <input type="date" class="form-control" name="fecha" v-model="fecha">
+                        <input type="date" class="form-control" name="fecha"  value="<?php echo date("Y-m-d");?>">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="nombre_reporta">Nombre Completo de quien Reporta:</label>
-                        <input type="text" class="form-control" name="nombre_reporta" placeholder="Escriba su nombre" value="{{old('nombre_reporta')}}" v-model="quien_reporta">
+                        <input type="text" class="form-control" name="nombre_reporta" placeholder="Escriba su nombre" value="{{old('nombre_reporta')}}" style="text-transform: uppercase;" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="telefono">Telefono:</label>
-                        <input type="text" class="form-control" name="telefono" placeholder="Su telefono" value="{{old('telefono')}}" v-model="telefono">
+                        <input type="text" class="form-control" name="telefono" placeholder="Su telefono" value="{{old('telefono')}}" v-model="telefono" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="correo">Correo Electronico:</label>
-                        <input type="email" class="form-control" name="correo" placeholder="Su Correo Elecrtomnico" value="{{old('correo')}}" v-model="email">
+                        <input type="email" class="form-control" name="correo" placeholder="Su Correo Elecrtomnico" value="{{old('correo')}}" v-model="email" required>
                     </div>
                 </div>
 
@@ -71,19 +71,19 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="telefono">Marca:</label>
-                        <input type="text" class="form-control" name="marca" placeholder="Marca" value="{{old('marca')}}" v-model="marca">
+                        <input type="text" class="form-control" name="marca" placeholder="Marca" value="{{old('marca')}}" v-model="marca" style="text-transform: uppercase;">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="telefono">Modelo:</label>
-                        <input type="text" class="form-control" name="modelo" placeholder="Modelo" value="{{old('modelo')}}" v-model="modelo">
+                        <input type="text" class="form-control" name="modelo" placeholder="Modelo" value="{{old('modelo')}}" v-model="modelo" style="text-transform: uppercase;">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="telefono">Serie:</label>
-                        <input type="text" class="form-control" name="serie" placeholder="Serie" value="{{old('serie')}}" v-model="serie">
+                        <input type="text" class="form-control" name="serie" placeholder="Serie" value="{{old('serie')}}" v-model="serie" style="text-transform: uppercase;">
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="empresa">Observaciones del Equipo:</label>
-                      <textarea class="form-control"  placeholder="Ejemplo. Especifique Algun detalle que haya notado en el equipo" name="observacion" cols="50" rows="10" ></textarea>
+                      <textarea class="form-control"  placeholder="Ejemplo. Especifique Algun detalle que haya notado en el equipo" name="observacion" cols="50" rows="10" style="text-transform: uppercase;"  required></textarea>
                     </div>
                 </div>
 
