@@ -77,24 +77,23 @@
                               <li><a href="{{ url('/quejas') }}">Mantenimientos Totales</a></li>
                             @endif
 
-
+                            @if(Auth::user()->rol == 'admin')
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Ver <span class="caret"></span>
+                                    Agregar <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
 
-                                        <li><a href="{{ url('/articulos') }}">Articulos</a></li>
-                                        <li><a href="{{ url('/mosclientes') }}">Clientes</a></li>
-                                        <li><a href="{{ url('/cancelados') }}">Entradas Cancelados</a></li>
-                                        <li><a href="{{ url('/mostrarsalidas') }}">Mostrar Salidas</a></li>
-                                        <li><a href="{{ url('/especifico') }}">Bitacora</a></li>
-
-
+                                        <li><a href="{{ url('/') }}">d</a></li>
+                                        <li><a href="{{ url('/') }}">Clientes</a></li>
+                                        <li><a href="{{ url('/') }}">Entradas Cancelados</a></li>
+                                        <li><a href="{{ url('/') }}">Mostrar Salidas</a></li>
+                                        <li><a href="{{ url('/') }}">Bitacora</a></li>
 
                                 </ul>
                             </li>
+                              @endif
 
 
                           <!--  <li><a href="{{ url('/filtro') }}">Filtro</a></li>-->

@@ -38,8 +38,10 @@ Route::group(['middleware'=> 'Role:admin'], function(){
     Route::post('posts', 'PostsController@store');
 
     Route::get('/posts/editposts/{id}', 'PostsController@show');
+    Route::get('/posts/user/{id}', 'PostsController@show2');
 
     Route::post('/posts/editposts/{id}', 'PostsController@update');
+    Route::post('/posts/user/{id}', 'PostsController@update2');
 
     Route::get('/users/editprofile/{id}', 'UsersController@show');
 

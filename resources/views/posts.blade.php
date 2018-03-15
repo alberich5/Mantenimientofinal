@@ -14,6 +14,7 @@
                     </div>
                 @endif
 
+<div id="entrada">
 
                 <div class="form-group">
                     <div class="col-sm-10">
@@ -113,13 +114,14 @@
                     </div>
                 </div>
             </form>
+  </div>
 
        @endif
-        <div class="row">
+        <!--<div class="row">
           <div class="col-xs-12">
             <pre>@{{$data}}</pre>
           </div>
-        </div>
+        </div>-->
     </div>
 @endsection
 

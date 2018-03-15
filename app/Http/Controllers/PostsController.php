@@ -79,6 +79,13 @@ class PostsController extends Controller
 
         return view('posts/editposts',compact('post'));
     }
+    public function show2($id)
+    {
+        $post=Post::findOrFail($id);
+
+
+        return view('posts/editposts2',compact('post'));
+    }
 
     public function update($id, Request $request)
     {
@@ -94,6 +101,25 @@ class PostsController extends Controller
         $post->update();
 
         return redirect("posts");
+    }
+
+    public function update2($id, Request $request)
+    {
+
+        $this->validate($request,[
+            'id_usuario'=>'required',
+            'nombre_usuario' => 'required',
+            'contenido' => 'required',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->observacion=strtoupper($request->get('contenido'));
+        $post->marca=strtoupper($request->get('marca'));
+        $post->modelo=strtoupper($request->get('modelo'));
+        $post->serie=strtoupper($request->get('serie'));
+        $post->update();
+
+        return redirect("vista");
     }
 
     public function guardarqueja(Request $request)
