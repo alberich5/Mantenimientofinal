@@ -76,6 +76,7 @@ class PostsController extends Controller
     {
         $post=Post::findOrFail($id);
 
+
         return view('posts/editposts',compact('post'));
     }
 
@@ -86,9 +87,11 @@ class PostsController extends Controller
             'nombre_usuario' => 'required',
             'contenido' => 'required',
         ]);
+
         $post = Post::findOrFail($id);
-        $input = $request->all();
-        $post->fill($input)->save();
+        $post->observacion=$request->get('contenido');
+        $post->status=$request->get('status');
+        $post->update();
 
         return redirect("posts");
     }

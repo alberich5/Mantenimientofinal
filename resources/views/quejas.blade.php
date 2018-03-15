@@ -30,16 +30,20 @@
                                     <br>
                                     Observaciones: {{$post->observacion}}
                                     <br>
-                                      @if($post->status == 'pendiente')
+                                      @if($post->status == 'PENDIENTE')
                                     status: <span class="label label-primary">{{$post->status}}</span>
                                       @endif
-                                      @if($post->status == 'atendido')
+                                      @if($post->status == 'ATENDIDA')
                                     status: <span class="label label-success">{{$post->status}}</span>
                                       @endif
                                 </th>
                                 <th>
                                     @if(Auth::check() && Auth::user()->id == $post->id_usuario || Auth::check() && Auth::user()->rol == 'admin')
+                                    @if($post->status == 'PENDIENTE')
+
+
                                 <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-info">Editar</button> </a>
+                                    @endif
                                 </th>
                                 <th>
                                     <!--<a href="/posts/delete/{{$post->id}}" ><button class="btn btn-danger">Delete</button> </a>-->
