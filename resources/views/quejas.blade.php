@@ -16,7 +16,7 @@
                             <thead>
                             @foreach($posts as $post)
                             <tr>
-                                <th><h4>{{$post->nombre_usuario}}</h4>
+                                <th><h4>{{$post->name}}</h4>
                                     <br>
                                 <strong>Folio: </strong> {{$post->id}}
                                     <br>

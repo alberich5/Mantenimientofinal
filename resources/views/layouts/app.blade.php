@@ -8,14 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('ServiciosGenerales', 'ServiciosGenerales') }}</title>
+    <title>{{ config('Mantenimiento', 'Mantenimiento') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link  href="{{ asset('css/sweetalert.css') }}" rel="stylesheet">
     <link href="{{ asset('css/codigo.css') }}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="img/poli.ico">
+    <link rel="shortcut icon" href="img/1.png">
     @yield('css')
 
     <!-- Scripts -->
@@ -68,21 +68,16 @@
                            <!-- <li><a href="{{ url('/register') }}">Register</a></li>-->
                             <li><a href="{{ url('/howto') }}">Como usar ?</a></li>
                         @else
-                          <li><a href="{{ url('/post') }}">Entrada</a></li>
-                            <li><a href="{{ url('/quejas') }}">Mantenimientos</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Agregar <span class="caret"></span>
-                                </a>
+                          <li><a href="{{ url('/posts') }}">Crear</a></li>
 
-                                <ul class="dropdown-menu" role="menu">
-
-                                        <li><a href="{{ url('/cliente') }}">Cliente</a></li>
-                                        <li><a href="{{ url('/unidad') }}">Unidad</a></li>
+                            @if(Auth::user()->rol == 'user')
+                              <li><a href="{{ url('/vista') }}">Mantenimientos</a></li>
+                            @endif
+                            @if(Auth::user()->rol == 'admin')
+                              <li><a href="{{ url('/quejas') }}">Mantenimientos Totales</a></li>
+                            @endif
 
 
-                                </ul>
-                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Ver <span class="caret"></span>
@@ -101,7 +96,7 @@
                                 </ul>
                             </li>
 
-                            <li><a href="{{ url('/grafica') }}">Descargar</a></li>
+
                           <!--  <li><a href="{{ url('/filtro') }}">Filtro</a></li>-->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -126,7 +121,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('/howto') }}">Como usar ?</a></li>
+
                         @endif
                     </ul>
                 </div>

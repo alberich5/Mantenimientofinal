@@ -7,6 +7,7 @@ use App\Equipo;
 use App\Area;
 use App\Tipomantenimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -32,6 +33,21 @@ class PostsController extends Controller
               ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
               ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status')
                ->paginate(10);
+
+        return view('quejas',compact("posts"));
+    }
+    public function vistas()
+    {
+
+        $posts = Post::leftjoin('users', 'posts.id_usuario', '=', 'users.id')
+              //->leftjoin('equipo ', 'posts.id_equipo', '=', 'equipo.id')
+              ->leftjoin('area', 'posts.id_area', '=', 'area.id')
+              ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
+              ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
+              ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status')
+              ->where('posts.id_usuario','=',Auth::id())
+               ->paginate(10);
+      
 
         return view('quejas',compact("posts"));
     }

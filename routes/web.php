@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('posts', 'PostsController@index');
 
 Route::get('quejas', 'PostsController@queja');
+Route::get('vista', 'PostsController@vistas');
 Route::get('guardarqueja', 'PostsController@guardarqueja');
 
 Route::get('howto', function (){
