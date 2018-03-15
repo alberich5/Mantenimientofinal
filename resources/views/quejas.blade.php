@@ -41,6 +41,10 @@
                                     @if(Auth::check() && Auth::user()->id == $post->id_usuario || Auth::check() && Auth::user()->rol == 'admin')
                                     @if($post->status == 'PENDIENTE')
                                       <a href="/posts/user/{{$post->id}}" ><button class="btn btn-info">Editar</button> </a>
+                                      <th>
+                                          <a href="/posts/descargar/{{$post->id}}" ><button class="btn btn-success">descargar</button> </a>
+
+                                      </th>
 
                                     @endif
                                     @if(Auth::user()->rol == 'admin')

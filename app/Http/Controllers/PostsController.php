@@ -8,6 +8,7 @@ use App\Area;
 use App\Tipomantenimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Response;
 
 class PostsController extends Controller
 {
@@ -140,7 +141,53 @@ class PostsController extends Controller
       $post->observacion=strtoupper($request->get('observacion'));
       $post->status=strtoupper('pendiente');
       $post->save();
-      return redirect("vista");
+
+      $phpWord = new \PhpOffice\PhpWord\PhpWord();
+      $section = $phpWord->addSection();
+
+
+      $templateWord = new \PhpOffice\PhpWord\TemplateProcessor('plantillasDoc/plantilla.docx');
+
+      $dia=date('d');
+      $mes=date('m');
+      $ano=date('Y');
+      $fecha=$ano.'-'.$mes.'-'.$dia;
+
+     return redirect("vista");
+
     }
+
+      public function descargar(Request $request){
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+
+
+        $templateWord = new \PhpOffice\PhpWord\TemplateProcessor('plantillasDoc/plantilla.docx');
+
+        $dia=date('d');
+        $mes=date('m');
+        $ano=date('Y');
+        $fecha=$ano.'-'.$mes.'-'.$dia;
+
+        $templateWord->setValue('folio','4');
+        $templateWord->setValue('nombre',$request->get('nombre_reporta'));
+        $templateWord->setValue('telefono',$request->get('telefono'));
+        $templateWord->setValue('email',$request->get('correo'));
+        $templateWord->setValue('fecha',$fecha);
+        $templateWord->setValue('marca',strtoupper($request->get('marca')));
+        $templateWord->setValue('modelo',strtoupper($request->get('modelo')));
+        $templateWord->setValue('serie',strtoupper($request->get('serie')));
+        $templateWord->setValue('mante',strtoupper($request->get('tipo_mante')));
+        $templateWord->setValue('equipo',strtoupper($request->get('tipo_equipo')));
+        $templateWord->setValue('contenido',strtoupper($request->get('observacion')));
+
+
+        $tim =time();
+
+      $templateWord->saveAs('log/salida'.$tim.'.docx'.$tim);
+      //$this->historial('Descarga de oficio de alta del elemento '.$id);
+      $nombreDocumento=str_replace("  "," ","Entrega para ".$tim." del ".$fecha);
+      return Response::download('log/salida'.$tim.'.docx'.$tim,$nombreDocumento.'.docx');
+      }
 
 }

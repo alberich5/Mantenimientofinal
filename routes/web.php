@@ -48,6 +48,7 @@ Route::group(['middleware'=> 'Role:admin'], function(){
     Route::post('/users/editprofile/{id}', 'UsersController@update');
 
     Route::get('users/delete/{id}', 'UsersController@destroy');
+    Route::get('posts/descargar/{id}', 'PostsController@descargar');
 
     Route::get('users/deleteaccount/{id}', 'UsersController@accountDown');
 
