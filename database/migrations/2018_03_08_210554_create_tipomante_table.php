@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUnidadTable extends Migration
+class CreateTipomanteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateUnidadTable extends Migration
      */
     public function up()
     {
-      Schema::create('unidad', function (Blueprint $table) {
+      Schema::create('tipo_manteniminto', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('nombre');
-          $table->timestamps();
+          $table->string('nombre_mante');
+          $table->timestamp('created_at')->nullable();
+          $table->timestamp('updated_at')->nullable();
       });
     }
 
@@ -27,6 +28,6 @@ class CreateUnidadTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unidad');
+        Schema::dropIfExists('tipo_manteniminto');
     }
 }

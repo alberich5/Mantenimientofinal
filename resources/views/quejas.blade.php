@@ -43,13 +43,13 @@
                                       <a href="/posts/user/{{$post->id}}" ><button class="btn btn-info">Editar</button> </a>
                                       <th>
                                           <a href="/posts/descargar/{{$post->id}}" ><button class="btn btn-success">descargar</button> </a>
-
+                                          @if(Auth::user()->rol == 'admin')
+                                            <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">EditarAdmin</button> </a>
+                                          @endif
                                       </th>
 
                                     @endif
-                                    @if(Auth::user()->rol == 'admin')
-                                      <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">Editar</button> </a>
-                                    @endif
+
                                 </th>
                                 <th>
                                     <!--<a href="/posts/delete/{{$post->id}}" ><button class="btn btn-danger">Delete</button> </a>-->

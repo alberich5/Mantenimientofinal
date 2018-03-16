@@ -139,6 +139,7 @@ class PostsController extends Controller
       $post->fecha_reporte=$request->get('fecha');
       $post->telefono=$request->get('telefono');
       $post->email=$request->get('correo');
+      $post->nombre_reporta=$request->get('nombre_reporta');
       $post->listado=strtoupper("temporal");
       $post->marca=strtoupper($request->get('marca'));
       $post->modelo=strtoupper($request->get('modelo'));
@@ -167,11 +168,35 @@ class PostsController extends Controller
 
         $post=Post::leftjoin('area', 'posts.id_area', '=', 'area.id')
         ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
+        ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
         ->where('posts.id','=',$id)
-        ->select('posts.id','posts.telefono','posts.email','posts.id_usuario','posts.marca','posts.modelo','posts.serie','area.nombre_area','equipo.nombre_equipo')
+        ->select('posts.id','posts.telefono','tipo_manteniminto.nombre_mante','posts.nombre_reporta','posts.email','posts.id_usuario','posts.marca','posts.modelo','posts.serie','area.nombre_area','equipo.nombre_equipo','posts.observacion')
         ->get();
+        $folio='';
+        $telefono='';
+        $reporta='';
+        $email='';
+        $area='';
+        $marca='';
+        $modelo='';
+        $serie='';
+        $comentarios='';
+        $equipo='';
+        $mante='';
+        foreach ($post as $po) {
+            $folio = $po->id;
+            $telefono = $po->telefono;
+            $reporta = $po->nombre_reporta;
+            $email = $po->email;
+            $area = $po->nombre_area;
+            $marca = $po->marca;
+            $modelo = $po->modelo;
+            $serie = $po->serie;
+            $comentarios = $po->observacion;
+            $equipo = $po->nombre_equipo;
+            $mante = $po->nombre_mante;
+        }
 
-        dd($post);
 
 
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
@@ -185,24 +210,25 @@ class PostsController extends Controller
         $ano=date('Y');
         $fecha=$ano.'-'.$mes.'-'.$dia;
 
-        $templateWord->setValue('folio','4');
-        $templateWord->setValue('nombre',$request->get('nombre_reporta'));
-        $templateWord->setValue('telefono',$request->get('telefono'));
-        $templateWord->setValue('email',$request->get('correo'));
+        $templateWord->setValue('folio',$folio);
+        $templateWord->setValue('nombre',$reporta);
+        $templateWord->setValue('cliente',$area);
+        $templateWord->setValue('telefono',$telefono);
+        $templateWord->setValue('email',$email);
         $templateWord->setValue('fecha',$fecha);
-        $templateWord->setValue('marca',strtoupper($request->get('marca')));
-        $templateWord->setValue('modelo',strtoupper($request->get('modelo')));
-        $templateWord->setValue('serie',strtoupper($request->get('serie')));
-        $templateWord->setValue('mante',strtoupper($request->get('tipo_mante')));
-        $templateWord->setValue('equipo',strtoupper($request->get('tipo_equipo')));
-        $templateWord->setValue('contenido',strtoupper($request->get('observacion')));
+        $templateWord->setValue('marca',strtoupper($marca));
+        $templateWord->setValue('modelo',strtoupper($modelo));
+        $templateWord->setValue('serie',strtoupper($serie));
+        $templateWord->setValue('mante',strtoupper($mante));
+        $templateWord->setValue('equipo',strtoupper($equipo));
+        $templateWord->setValue('contenido',strtoupper($comentarios));
 
 
         $tim =time();
 
       $templateWord->saveAs('log/salida'.$tim.'.docx'.$tim);
       //$this->historial('Descarga de oficio de alta del elemento '.$id);
-      $nombreDocumento=str_replace("  "," ","Entrega para ".$tim." del ".$fecha);
+      $nombreDocumento=str_replace("  "," ","Entrega para ".$area." del ".$fecha);
       return Response::download('log/salida'.$tim.'.docx'.$tim,$nombreDocumento.'.docx');
       }
 

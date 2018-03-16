@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogTable extends Migration
+class CreateAreaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateLogTable extends Migration
      */
     public function up()
     {
-      Schema::create('log', function (Blueprint $table) {
+      Schema::create('area', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('id_entrada')->unsigned();
-          $table->foreign('id_entrada')
-              ->references('id')->on('entrada')->onDetele('set null');
-          $table->integer('cantidad_inicial');
-          $table->string('tipo');
-          $table->date('fecha_log')->nullable();
+          $table->string('nombre_area');
           $table->timestamp('created_at')->nullable();
           $table->timestamp('updated_at')->nullable();
       });
@@ -33,6 +28,6 @@ class CreateLogTable extends Migration
      */
     public function down()
     {
-          Schema::dropIfExists('log');
+          Schema::dropIfExists('area');
     }
 }
