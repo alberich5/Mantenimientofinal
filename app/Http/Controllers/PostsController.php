@@ -13,6 +13,11 @@ use Response;
 class PostsController extends Controller
 {
 
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+
     public function index()
     {
 
@@ -157,7 +162,18 @@ class PostsController extends Controller
 
     }
 
-      public function descargar(Request $request){
+      public function descargar($id,Request $request){
+
+
+        $post=Post::leftjoin('area', 'posts.id_area', '=', 'area.id')
+        ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
+        ->where('posts.id','=',$id)
+        ->select('posts.id','posts.telefono','posts.email','posts.id_usuario','posts.marca','posts.modelo','posts.serie','area.nombre_area','equipo.nombre_equipo')
+        ->get();
+
+        dd($post);
+
+
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
 

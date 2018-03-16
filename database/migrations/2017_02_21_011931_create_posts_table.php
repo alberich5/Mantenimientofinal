@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->foreign('id_usuario')
                 ->references('id')->on('users')->onDetele('set null');
             $table->string('nombre_usuario');
+            $table->string('nombre_reporta');
             $table->date('fecha')->nullable();
             $table->string('tipo')->nullable();
             $table->string('entrada')->nullable();

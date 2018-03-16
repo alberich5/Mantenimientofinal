@@ -49,7 +49,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('Servicios', 'Servicios') }}
+                        {{ config('Mantenimiento', 'Mantenimiento') }}
                     </a>
                 </div>
 
