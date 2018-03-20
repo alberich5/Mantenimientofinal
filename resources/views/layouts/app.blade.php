@@ -66,7 +66,7 @@
                           <!--  <li><a href="{{ url('/posts') }}">Atenciones</a></li>-->
                             <li><a href="{{ url('/login') }}">Login</a></li>
                            <!-- <li><a href="{{ url('/register') }}">Register</a></li>-->
-                            <li><a href="{{ url('/howto') }}">Como usar ?</a></li>
+
                         @else
                           <li><a href="{{ url('/posts') }}">Crear</a></li>
 
@@ -78,21 +78,7 @@
                             @endif
 
                             @if(Auth::user()->rol == 'admin')
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Agregar <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-
-                                        <li><a href="{{ url('/') }}">d</a></li>
-                                        <li><a href="{{ url('/') }}">Clientes</a></li>
-                                        <li><a href="{{ url('/') }}">Entradas Cancelados</a></li>
-                                        <li><a href="{{ url('/') }}">Mostrar Salidas</a></li>
-                                        <li><a href="{{ url('/') }}">Bitacora</a></li>
-
-                                </ul>
-                            </li>
+                          
                               @endif
 
 

@@ -16,7 +16,7 @@
                             <thead>
                             @foreach($posts as $post)
                             <tr>
-                                <th><h4>{{$post->name}}</h4>
+                                <th><h4>{{$post->name}}   @if(Auth::user()->rol == 'admin') <a href="/posts/editposts3/{{$post->id}}" >Download </a>@endif</h4>
                                     <br>
                                 <strong>Folio: </strong> {{$post->id}}
                                     <br>
@@ -58,6 +58,7 @@
                                           <a href="/posts/cancelar/{{$post->id}}" ><button class="btn btn-danger">Cancelar</button> </a>
                                           @if(Auth::user()->rol == 'admin')
                                             <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">EditarAdmin</button> </a>
+
                                           @endif
                                       </th>
 

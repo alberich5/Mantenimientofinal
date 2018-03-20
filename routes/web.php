@@ -24,6 +24,7 @@ Route::get('posts', 'PostsController@index');
 Route::get('quejas', 'PostsController@queja');
 Route::get('vista', 'PostsController@vistas');
 Route::get('guardarqueja', 'PostsController@guardarqueja');
+Route::post('posts/editposts3/descargarpro', 'PostsController@pro');
 
 Route::get('howto', function (){
 
@@ -38,6 +39,7 @@ Route::group(['middleware'=> 'Role:admin'], function(){
     Route::post('posts', 'PostsController@store');
 
     Route::get('/posts/editposts/{id}', 'PostsController@show');
+      Route::get('/posts/editposts3/{id}', 'PostsController@show3');
     Route::get('/posts/user/{id}', 'PostsController@show2');
 
     Route::post('/posts/editposts/{id}', 'PostsController@update');
@@ -49,6 +51,7 @@ Route::group(['middleware'=> 'Role:admin'], function(){
 
     Route::get('users/delete/{id}', 'UsersController@destroy');
     Route::get('posts/descargar/{id}', 'PostsController@descargar');
+    Route::get('posts/descargarAdmin/{id}', 'PostsController@admin');
     Route::get('posts/cancelar/{id}', 'PostsController@cancelar');
 
     Route::get('users/deleteaccount/{id}', 'UsersController@accountDown');
@@ -58,5 +61,6 @@ Route::group(['middleware'=> 'Role:admin'], function(){
 Route::group(['middleware'=> 'Role:admin'], function(){
 
     Route::get('users/manageprofiles', 'UsersController@index');
+      Route::get('users/guardaruser', 'UsersController@guardaruser');
 
 });

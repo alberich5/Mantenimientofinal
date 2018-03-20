@@ -37,10 +37,10 @@
                                     <th>{{$user->email}}</th>
                                     <th>{{$user->rol}}</th>
                                     <th><a href="/users/editprofile/{{$user->id}}">
-                                            <button class="btn btn-primary">Edit</button>
+                                            <button class="btn btn-primary">Editar</button>
                                         </a>
                                         <a href="/users/delete/{{$user->id}}">
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button class="btn btn-danger">Elimnar</button>
                                         </a></th>
                             </tr>
                             @endforeach

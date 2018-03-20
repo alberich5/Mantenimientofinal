@@ -38,6 +38,7 @@ class PostsController extends Controller
               ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
               ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
               ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status','posts.marca','posts.modelo','posts.serie','posts.cancelar')
+              ->where('posts.cancelar','=','NO')
                ->paginate(10);
 
         return view('quejas',compact("posts"));
@@ -92,6 +93,13 @@ class PostsController extends Controller
 
 
         return view('posts/editposts2',compact('post'));
+    }
+    public function show3($id)
+    {
+        $post=Post::findOrFail($id);
+
+
+        return view('posts/editposts3',compact('post'));
     }
 
     public function update($id, Request $request)
@@ -242,4 +250,79 @@ class PostsController extends Controller
 
         return redirect("vista")->with('status', 'ok_create');
       }
+
+        public function admin($id,Request $request){
+          $identi=$id;
+
+            return view('Admindes',compact('identi'));
+        }
+
+        public function pro(Request $request){
+
+          $post=Post::leftjoin('area', 'posts.id_area', '=', 'area.id')
+          ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
+          ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
+          ->where('posts.id','=',$request->get('id'))
+          ->select('posts.id','posts.telefono','tipo_manteniminto.nombre_mante','posts.nombre_reporta','posts.email','posts.id_usuario','posts.marca','posts.modelo','posts.serie','area.nombre_area','equipo.nombre_equipo','posts.observacion')
+          ->get();
+          $folio='';
+          $telefono='';
+          $reporta='';
+          $email='';
+          $area='';
+          $marca='';
+          $modelo='';
+          $serie='';
+          $comentarios='';
+          $equipo='';
+          $mante='';
+          foreach ($post as $po) {
+              $folio = $po->id;
+              $telefono = $po->telefono;
+              $reporta = $po->nombre_reporta;
+              $email = $po->email;
+              $area = $po->nombre_area;
+              $marca = $po->marca;
+              $modelo = $po->modelo;
+              $serie = $po->serie;
+              $comentarios = $po->observacion;
+              $equipo = $po->nombre_equipo;
+              $mante = $po->nombre_mante;
+          }
+
+
+
+          $phpWord = new \PhpOffice\PhpWord\PhpWord();
+          $section = $phpWord->addSection();
+
+
+          $templateWord = new \PhpOffice\PhpWord\TemplateProcessor('plantillasDoc/plantilla.docx');
+
+          $dia=date('d');
+          $mes=date('m');
+          $ano=date('Y');
+          $fecha=$ano.'-'.$mes.'-'.$dia;
+
+          $templateWord->setValue('folio',$folio);
+          $templateWord->setValue('nombre',$reporta);
+          $templateWord->setValue('cliente',$area);
+          $templateWord->setValue('telefono',$telefono);
+          $templateWord->setValue('email',$email);
+          $templateWord->setValue('fecha',$fecha);
+          $templateWord->setValue('marca',strtoupper($marca));
+          $templateWord->setValue('modelo',strtoupper($modelo));
+          $templateWord->setValue('serie',strtoupper($serie));
+          $templateWord->setValue('mante',strtoupper($mante));
+          $templateWord->setValue('solucion',strtoupper($request->get('solucion')));
+          $templateWord->setValue('equipo',strtoupper($equipo));
+          $templateWord->setValue('contenido',strtoupper($comentarios));
+
+
+          $tim =time();
+
+        $templateWord->saveAs('log/salida'.$tim.'.docx'.$tim);
+        //$this->historial('Descarga de oficio de alta del elemento '.$id);
+        $nombreDocumento=str_replace("  "," ","Entrega para ".$area." del ".$fecha);
+        return Response::download('log/salida'.$tim.'.docx'.$tim,$nombreDocumento.'.docx');
+        }
 }
