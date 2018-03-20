@@ -37,6 +37,7 @@ class CreatePostsTable extends Migration
           $table->string('modelo')->nullable();
           $table->string('serie')->nullable();
           $table->string('status')->nullable();
+          $table->string('cancelar')->nullable();
           $table->timestamp('created_at')->nullable();
           $table->timestamp('updated_at')->nullable();
       });

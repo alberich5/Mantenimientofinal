@@ -37,7 +37,7 @@ class PostsController extends Controller
               ->leftjoin('area', 'posts.id_area', '=', 'area.id')
               ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
               ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
-              ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status')
+              ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status','posts.marca','posts.modelo','posts.serie','posts.cancelar')
                ->paginate(10);
 
         return view('quejas',compact("posts"));
@@ -50,8 +50,9 @@ class PostsController extends Controller
               ->leftjoin('area', 'posts.id_area', '=', 'area.id')
               ->leftjoin('equipo', 'posts.id_equipo', '=', 'equipo.id')
               ->leftjoin('tipo_manteniminto', 'posts.id_tipomante', '=', 'tipo_manteniminto.id')
-              ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status')
+              ->select('posts.id','posts.id_usuario','users.name','area.nombre_area','tipo_manteniminto.nombre_mante','nombre_equipo','posts.observacion','posts.fecha_reporte','posts.status','posts.marca','posts.modelo','posts.serie')
               ->where('posts.id_usuario','=',Auth::id())
+              ->where('posts.cancelar','=','NO')
               ->orderBy('posts.id', 'desc')
                ->paginate(10);
 
@@ -146,6 +147,7 @@ class PostsController extends Controller
       $post->serie=strtoupper($request->get('serie'));
       $post->observacion=strtoupper($request->get('observacion'));
       $post->status=strtoupper('pendiente');
+      $post->cancelar=strtoupper('NO');
       $post->save();
 
       $phpWord = new \PhpOffice\PhpWord\PhpWord();
@@ -232,4 +234,12 @@ class PostsController extends Controller
       return Response::download('log/salida'.$tim.'.docx'.$tim,$nombreDocumento.'.docx');
       }
 
+      public function cancelar($id,Request $request){
+
+        $post=Post::findOrFail($id);
+        $post->cancelar='SI';
+        $post->update();
+
+        return redirect("vista")->with('status', 'ok_create');
+      }
 }

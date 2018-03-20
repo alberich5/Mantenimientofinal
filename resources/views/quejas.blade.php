@@ -28,7 +28,19 @@
                                     <br>
                                     Equipo: {{$post->nombre_equipo}}
                                     <br>
+                                    Marca: {{$post->marca}}
+                                    <br>
+                                    Modelo: {{$post->modelo}}
+                                    <br>
+                                    Serie: {{$post->serie}}
+                                    <br>
                                     Observaciones: {{$post->observacion}}
+                                    <br>
+                                    @if($post->cancelar == 'SI')
+                                  Cancelado: <span class="label label-danger">{{$post->cancelar}}</span>
+                                    @endif
+                                    @if($post->cancelar == 'NO')
+                                    @endif
                                     <br>
                                       @if($post->status == 'PENDIENTE')
                                     status: <span class="label label-primary">{{$post->status}}</span>
@@ -43,6 +55,7 @@
                                       <a href="/posts/user/{{$post->id}}" ><button class="btn btn-info">Editar</button> </a>
                                       <th>
                                           <a href="/posts/descargar/{{$post->id}}" ><button class="btn btn-success">descargar</button> </a>
+                                          <a href="/posts/cancelar/{{$post->id}}" ><button class="btn btn-danger">Cancelar</button> </a>
                                           @if(Auth::user()->rol == 'admin')
                                             <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">EditarAdmin</button> </a>
                                           @endif

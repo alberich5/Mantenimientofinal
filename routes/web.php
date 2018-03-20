@@ -49,6 +49,7 @@ Route::group(['middleware'=> 'Role:admin'], function(){
 
     Route::get('users/delete/{id}', 'UsersController@destroy');
     Route::get('posts/descargar/{id}', 'PostsController@descargar');
+    Route::get('posts/cancelar/{id}', 'PostsController@cancelar');
 
     Route::get('users/deleteaccount/{id}', 'UsersController@accountDown');
 
