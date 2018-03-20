@@ -59,8 +59,9 @@
                                           <a href="/posts/cancelar/{{$post->id}}" ><button class="btn btn-danger">Cancelar</button> </a>
                                           </th>
                                           @if(Auth::user()->rol == 'admin')
+                                          <th>
                                             <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">EditarAdmin</button> </a>
-
+                                            </th>
                                           @endif
                                       </th>
 
