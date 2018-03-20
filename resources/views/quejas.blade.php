@@ -54,8 +54,10 @@
                                     @if($post->status == 'PENDIENTE')
                                       <a href="/posts/user/{{$post->id}}" ><button class="btn btn-info">Editar</button> </a>
                                       <th>
-                                          <a href="/posts/descargar/{{$post->id}}" ><button class="btn btn-success">descargar</button> </a>
+                                          <a href="/posts/descargar/{{$post->id}}" ><button class="btn btn-success">Bajar</button> </a>
+                                          <th>
                                           <a href="/posts/cancelar/{{$post->id}}" ><button class="btn btn-danger">Cancelar</button> </a>
+                                          </th>
                                           @if(Auth::user()->rol == 'admin')
                                             <a href="/posts/editposts/{{$post->id}}" ><button class="btn btn-primary">EditarAdmin</button> </a>
 

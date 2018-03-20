@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                       <label for="telefono">Telefono:</label>
-                        <input type="text" class="form-control" name="telefono" placeholder="Su telefono" value="{{old('telefono')}}" v-model="telefono" required>
+                        <input type="text" class="form-control" name="telefono" placeholder="Su telefono" value="{{old('telefono')}}" v-model="telefono" onkeypress="return valida(event)" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -126,6 +126,21 @@
 @endsection
 
 @section('js')
+<script>
+function valida(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+</script>
 
   <script type="text/javascript">
   var vm = new Vue({
