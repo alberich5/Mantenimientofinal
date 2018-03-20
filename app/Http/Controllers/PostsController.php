@@ -213,32 +213,27 @@ class PostsController extends Controller
         $section = $phpWord->addSection();
 
 
-        $templateWord = new \PhpOffice\PhpWord\TemplateProcessor('plantillasDoc/plantilla.docx');
+        $templateWord = new \PhpOffice\PhpWord\TemplateProcessor('plantillasDoc/user.docx');
 
         $dia=date('d');
         $mes=date('m');
         $ano=date('Y');
         $fecha=$ano.'-'.$mes.'-'.$dia;
 
-        $templateWord->setValue('folio',$folio);
+
         $templateWord->setValue('nombre',$reporta);
         $templateWord->setValue('cliente',$area);
         $templateWord->setValue('telefono',$telefono);
         $templateWord->setValue('email',$email);
         $templateWord->setValue('fecha',$fecha);
-        $templateWord->setValue('marca',strtoupper($marca));
-        $templateWord->setValue('modelo',strtoupper($modelo));
-        $templateWord->setValue('serie',strtoupper($serie));
-        $templateWord->setValue('mante',strtoupper($mante));
-        $templateWord->setValue('equipo',strtoupper($equipo));
-        $templateWord->setValue('contenido',strtoupper($comentarios));
+
 
 
         $tim =time();
 
       $templateWord->saveAs('log/salida'.$tim.'.docx'.$tim);
       //$this->historial('Descarga de oficio de alta del elemento '.$id);
-      $nombreDocumento=str_replace("  "," ","Entrega para ".$area." del ".$fecha);
+      $nombreDocumento=str_replace("  "," ","Peticion para ".$area." del ".$fecha);
       return Response::download('log/salida'.$tim.'.docx'.$tim,$nombreDocumento.'.docx');
       }
 
