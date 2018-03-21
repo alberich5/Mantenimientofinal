@@ -18,6 +18,7 @@
                                 </div>
                             @endif
 
+                            <label for="folio">Folio:</label>
                             <input type="text" class="form-control" name="id" readonly="readonly" value="{{ $post->id }}">
 
                             <div class="form-group">

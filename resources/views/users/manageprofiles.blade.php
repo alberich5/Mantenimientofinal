@@ -2,7 +2,16 @@
 
 @section('content')
 
+
+
     <div class="container">
+      @if(Session::has('success'))
+      <div class="alert alert-warning" role="alert">
+      <center>No se puede crear porque ya tenemos un usuario registrado con el mismo nombre</center>
+      </div>
+      @endif
+
+
         @if(count($errors) > 0)
             <div class="errors">
                 <ul class="alert-danger">
@@ -84,8 +93,8 @@
                           <div class="col-md-12">
                             <label>Rol:</label>
                             <select class="form-control" name="rol" id="rol">
-                                <option>User</option>
-                                <option>Admin</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
                             </select>
                           </div>
                       </div>

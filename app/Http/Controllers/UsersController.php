@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\User;
+
 
 class UsersController extends Controller
 {
@@ -56,13 +58,24 @@ class UsersController extends Controller
     }
     public function guardaruser(Request $request){
 
-      $email=$request->get('name')."@gmail.com";
-      $user=new User;
-      $user->name=$request->get('name');
-      $user->username=$request->get('usuario');
-      $user->email=$email;
-      $user->password=bcrypt($request->get('password'));
-      $user->save();
+        $users = User::where('username', $request->get('usuario'))->get();
+
+        $tama=count($users);
+        if($tama == 0){
+          $email=$request->get('name')."@gmail.com";
+          $user=new User;
+          $user->name=$request->get('name');
+          $user->username=$request->get('usuario');
+          $user->email=$email;
+          $user->rol=$request->get('rol');
+          $user->password=bcrypt($request->get('password'));
+          $user->save();
+        }else{
+ 
+            return redirect("/users/manageprofiles")->with('success','muy bien');
+        }
+
+
       return redirect("/users/manageprofiles");
     }
 }
