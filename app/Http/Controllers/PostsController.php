@@ -226,6 +226,7 @@ class PostsController extends Controller
         $templateWord->setValue('telefono',$telefono);
         $templateWord->setValue('email',$email);
         $templateWord->setValue('fecha',$fecha);
+        $templateWord->setValue('fol',$folio);
 
 
 

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('ServiciosGenerales', 'ServiciosGenerales') }}</title>
+    <title>{{ config('Mantenimiento', 'Mantenimiento') }}</title>
 
     <!-- Styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -47,7 +47,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('Sericio', 'Servicio') }}
+                        {{ config('Mantenimiento', 'Mantenimiento') }}
                     </a>
                 </div>
 
